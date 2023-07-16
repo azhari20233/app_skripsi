@@ -795,9 +795,12 @@ $_SESSION['msg_type'] = "berhasil";
     </div>
   </div>
 
-<?php 
-    $qrytahun = mysqli_query($koneksi, "SELECT tahun FROM absensi GROUP BY tahun")?>
-  <div class="modal fade" id="pensiunc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+  <?php 
+    $qrytahun = mysqli_query($koneksi, "SELECT YEAR(tanggal) AS tahun_absen FROM absen_pegawai GROUP BY YEAR(tanggal)
+    ")?>
+  <div class="modal fade" id="kinerjac" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -807,13 +810,13 @@ $_SESSION['msg_type'] = "berhasil";
           </button>
         </div>
         <div class="modal-body">
-          <form action="../laporan/data_pensiun.php" method="post" target="_blank"> 
+          <form action="../laporan/data_kinerja.php" method="post" target="_blank"> 
           <table>
-            <div class="form-group row">
+          <div class="form-group row">
               <label class="col-sm-5 col-form-label" >Berdasarkan Bulan</label>
             </div>
               <div class="col-sm-12" style="margin-bottom: 10px;">
-                <select style="color: black;" name="bulan-cetak" class="form-control">
+                <select required style="color: black;" name="bulan-cetak" class="form-control">
                   <option readonly="">-PILIH BULAN-</option>
                   <option value="-01-">Januari</option>
                   <option value="-02-">Februari</option>
@@ -835,28 +838,31 @@ $_SESSION['msg_type'] = "berhasil";
               <label class="col-sm-5 col-form-label">Berdasarkan Tahun</label>
             </div>
               <div class="col-sm-12" style="margin-bottom: 10px;">
-                <select style="color: black;" name="tahun-cetak" class="form-control">
+                <select required style="color: black;" name="tahun-cetak" class="form-control">
                   <option readonly="">-PILIH TAHUN-</option>
                   <?php if(mysqli_num_rows($qrytahun)) { ?>
                   <?php while ($row = mysqli_fetch_array($qrytahun)) { ?>
-                  <option><?php $formatwaktu = $row["tgl_pensiun"];echo date('Y',strtotime($formatwaktu)); ?></option>
+                  <option><?php 
+                    $formatwaktu = $row["tahun_absen"];
+                    echo date('Y',strtotime($formatwaktu)); 
+                    ?></option>
                   <?php } ?>
                   <?php } ?>
                 </select>
               </div>
             </div>
 
-              <button type="submit" name="cetak" class="btn btn-primary btn-sm">CETAK</button>
+              
             <div align="">
             </div>
               
           </table>
-          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <a href="../laporan/data_pensiun.php?id_pensiun=<?php echo $row['id_pensiun']; ?>" class="btn btn-primary" target="_blank">Cetak Semua</a>
+          <button type="submit" name="cetak" class="btn btn-primary btn-sm">CETAK BULANAN</button>
         </div>
+        </form>
       </div>
     </div>
   </div>

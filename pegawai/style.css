@@ -1,0 +1,81 @@
+html {
+	position: relative;
+}
+
+body {
+	margin-bottom: 50px;
+	margin-top: 30px;
+}
+
+.jumbotron {
+	height: 450px;
+	background-image: url('../img/cover.jpg');
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: 0 -200px;
+	margin-bottom: 0px;	
+}
+
+
+hr {
+	width: 250px;
+	border-top: 3px solid #222;
+}
+
+section {
+	min-height: 400px;
+}
+
+.tentang {
+	background-color: #4ddbec;
+	color : #000000;
+}
+
+.layanan {
+	height: 100px;
+	background-color: #4bc6d5;
+}
+
+.layanan .thumbnail {
+	background-color: #4ddbec;
+	color: #000; 
+}
+
+.produk {
+	background-color: #4ddbec;
+}
+
+.produk .thumbnail {
+	opacity: 0;
+	transform: translate(0, 40px);
+	transition: .5s;
+}
+
+.produk .thumbnail.muncul {
+	opacity: 1;
+	transform: translate(0,0);
+}
+
+.about {
+	background-color: #4bc6d5;
+}
+
+.about .thumbnail {
+	background-color: #4ddbec;
+	color: #000;
+}
+
+.order {
+	height: 700px;
+	background-color: #4ddbec;
+}
+
+#bawah p {
+	margin-top: 10px;
+	color: #999999;
+	font-size: 0,9em;
+}
+
+#bawah p i {
+	color: yellow;
+}
