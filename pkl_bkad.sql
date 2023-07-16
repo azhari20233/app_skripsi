@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2023 at 10:26 AM
+-- Generation Time: Jul 16, 2023 at 02:54 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -231,16 +231,17 @@ CREATE TABLE `kenaikan_jabatan` (
   `nip` varchar(255) NOT NULL,
   `bidang` varchar(255) NOT NULL,
   `jabatan_baru` varchar(255) NOT NULL,
-  `golongan_baru` varchar(255) NOT NULL
+  `golongan_baru` varchar(255) NOT NULL,
+  `tanggal` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kenaikan_jabatan`
 --
 
-INSERT INTO `kenaikan_jabatan` (`id_kenaikan`, `nip`, `bidang`, `jabatan_baru`, `golongan_baru`) VALUES
-(1, '197006161990031002', 'anggaran', 'staff', 'eselon IIA'),
-(5, '197406262005011005', 'asd', 'ads', 'asd');
+INSERT INTO `kenaikan_jabatan` (`id_kenaikan`, `nip`, `bidang`, `jabatan_baru`, `golongan_baru`, `tanggal`) VALUES
+(1, '197006161990031002', 'anggaran', 'staff', 'eselon IIA', '2023-07-15'),
+(5, '197406262005011005', 'asd', 'ads', 'asd', '2023-07-16');
 
 -- --------------------------------------------------------
 
