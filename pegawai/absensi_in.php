@@ -6,8 +6,16 @@
   $sql = mysqli_query($koneksi,"SELECT * FROM t_pegawai WHERE id_pg = " . $user_row['id_pg']);
   $user_row = mysqli_fetch_array($sql);
 
-  $sql_absen = mysqli_query($koneksi,"SELECT * FROM absen_pegawai WHERE id_pg = " . $user_row['id_pg'] . " AND tanggal = '" . date('Y-m-d') . "'");
-  $absen_row = mysqli_num_rows($sql_absen);
+  $sql_absen_masuk = mysqli_query($koneksi,"SELECT * FROM absen_pegawai WHERE id_pg = " . $user_row['id_pg'] . " AND tanggal = '" . date('Y-m-d') . "' AND absen_masuk IS NOT NULL AND absen_pulang IS NULL");
+  $absen_row_masuk = mysqli_num_rows($sql_absen_masuk);
+  $sql_absen_pulang = mysqli_query($koneksi,"SELECT * FROM absen_pegawai WHERE id_pg = " . $user_row['id_pg'] . " AND tanggal = '" . date('Y-m-d') . "' AND absen_masuk IS NOT NULL AND absen_pulang IS NOT NULL");
+  $absen_row_pulang = mysqli_num_rows($sql_absen_pulang);
+
+  if($absen_row_masuk != 0) {
+    while ($data = mysqli_fetch_array($sql_absen_masuk)) {
+      $id_absen = $data['id'];
+    }
+  }
 ?>
 <form action="" method="post">
   <div class="main-content-inner">
@@ -41,11 +49,40 @@
                                 </div>
                               </div>
                             </div>
-                            <?php if($absen_row == 0) { ?>
-                            <button type="submit" name="input" class="btn btn-primary" title="Simpan">Absen</button>
-                            <?php } else { ?>
-                              <button type="submit" name="input" class="btn btn-primary" disabled title="Simpan">Sudah Absen</button>
-                            <?php } ?>
+
+                            <?php 
+                            date_default_timezone_set('Asia/Makassar');
+                            $currentHour = date('H');
+
+                            if($currentHour >= 7 && $currentHour <= 8 ) {
+                              if($absen_row_masuk == 0 && $absen_row_pulang == 0) {
+                            ?>
+                              <button type="submit" name="masuk" class="btn btn-primary" title="Simpan">Absen Masuk</button>
+                            <?php  
+                              }else {
+                            ?>
+                              <button type="submit" name="masuk" class="btn btn-primary" disabled title="Simpan">Sudah Absen Masuk</button>
+                            <?php
+                              }
+                              
+                            }elseif($currentHour >= 16 && $currentHour <= 17) {
+                              if($absen_row_masuk != 0 && $absen_row_pulang == 0) {
+                                ?>
+                                  <button type="submit" name="pulang" class="btn btn-primary" title="Simpan">Absen Pulang</button>
+                                <?php
+                              }else {
+                                ?>
+                                  <button type="submit" name="pulang" class="btn btn-primary" disabled title="Simpan">Sudah Absen</button>
+                                <?php
+                              }
+
+                            }else {
+                              ?>
+                                <button type="submit" name="pulang" class="btn btn-primary" disabled title="Simpan">Sudah Absen</button>
+                              <?php
+                            }
+                            
+                            ?>
                       </div>
                   </div>
               </div>
@@ -61,18 +98,32 @@
 ?> 
 <?php 
 $now = date('Y-m-d');
-if (isset($_POST['input'])) {
 
-    $tanggal = $_REQUEST['tanggal'];
-    $id_pg = $_REQUEST['id_pg'];
-    $tambah = mysqli_query($koneksi,"INSERT INTO absen_pegawai ( id_pg, tanggal ) VALUES(
-          '$id_pg',
-          '$tanggal')");
+// Absen Masuk
+if (isset($_POST['masuk'])) {
+  $tanggal = $_REQUEST['tanggal'];
+  $id_pg = $_REQUEST['id_pg'];
+  $masuk = date('H:i:s');
+  $tambah = mysqli_query($koneksi,"INSERT INTO absen_pegawai ( id_pg, tanggal, absen_masuk ) VALUES(
+        '$id_pg',
+        '$tanggal',
+        '$masuk')");
 if($tambah){
-          ?> <script>alert('Absensi pada hari ini telah di lakukan!'); window.location = 'absensi.php';</script><?php
-        }else{
-          ?> <script>alert('Gagal, cek kembali!.'); window.location = 'absensi_in.php';</script><?php
-        }
+    ?> <script>alert('Absensi masuk pada hari ini telah di lakukan!'); window.location = 'absensi.php';</script><?php
+  }else{
+    ?> <script>alert('Gagal, cek kembali!.'); window.location = 'absensi_in.php';</script><?php
+  }
+}
 
-    }
- ?>
+// Absen Pulang
+if (isset($_POST['pulang'])) {
+  $pulang = date('H:i:s');
+
+  $ubahAbsenPulang = mysqli_query($koneksi,"UPDATE absen_pegawai SET absen_pulang = '$pulang' WHERE id = '$id_absen'");
+if($ubahAbsenPulang){
+    ?> <script>alert('Absensi pulang pada hari ini telah di lakukan!'); window.location = 'absensi.php';</script><?php
+  }else{
+    ?> <script>alert('Gagal, cek kembali!.'); window.location = 'absensi_in.php';</script><?php
+  }
+}
+?>

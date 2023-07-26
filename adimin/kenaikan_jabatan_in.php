@@ -89,11 +89,14 @@ if (isset($_POST['input'])) {
     $jabatan = $_REQUEST['jabatan'];
     $golongan = $_REQUEST['golongan'];
 
-    $tambah = mysqli_query($koneksi,"INSERT INTO kenaikan_jabatan (nip, bidang, jabatan_baru, golongan_baru) VALUES(
+    $tanggal = date('Y-m-d');
+
+    $tambah = mysqli_query($koneksi,"INSERT INTO kenaikan_jabatan (nip, bidang, jabatan_baru, golongan_baru, tanggal) VALUES(
       '$nip',
       '$bidang',
       '$jabatan',
-      '$golongan')
+      '$golongan',
+      '$tanggal')
       ");
 
 if($tambah){

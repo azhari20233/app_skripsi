@@ -20,17 +20,21 @@
 			                        	<th>No</th>
 			                            <th>Tanggal </th>
                                         <th>NIP </th>
+                                        <th>Absen Masuk </th>
+                                        <th>Absen Pulang </th>
                                         <th>Nama Pegawai </th>
 			                        </tr>
 			                    </thead>
 			                    <tbody>
 			                        <tr>
-			                        <?php $id_pg = $user_row['id_pg']; $sql = mysqli_query($koneksi,"SELECT * FROM absen_pegawai INNER JOIN t_pegawai ON absen_pegawai.id_pg=t_pegawai.id_pg WHERE absen_pegawai.id_pg = " . $user_row['id_pg'] . " ORDER BY id ASC");?>
+			                        <?php $id_pg = $user_row['id_pg']; $sql = mysqli_query($koneksi,"SELECT * FROM absen_pegawai INNER JOIN t_pegawai ON absen_pegawai.id_pg=t_pegawai.id_pg WHERE absen_pegawai.id_pg = " . $user_row['id_pg'] . " ORDER BY id DESC");?>
 						                <?php $no = 1; 
 						                  while ($data = mysqli_fetch_array($sql)) { ?>
 			                            <td style="vertical-align: middle;" class="text-center"><?php echo $no++ ?></td>
 			                            <td><?php echo $data['tanggal'];?></td>
                                         <td><?php echo $data['nip']; ?></td>
+                                        <td><?php echo $data['absen_masuk']; ?></td>
+                                        <td><?php echo $data['absen_pulang']; ?></td>
                                         <td><?php echo $data['nama_lengkap']; ?></td>
 			                        </tr>
 			                    <?php } ?>

@@ -121,6 +121,7 @@ $_SESSION['msg_type'] = "berhasil";
                   <!-- li><a href="#" title="Cetak Tabel" class="" data-toggle="modal" data-target="#masukc">Surat Masuk</a></li>
                                     <li><a href="#" title="Cetak Tabel" class="" data-toggle="modal" data-target="#sppdc">Surat Perintah Perjalanan Dinas</a></li>
                                     <li><a href="#" title="Cetak Tabel" class="" data-toggle="modal" data-target="#sptc">Surat Perintah Tugas</a></li> -->
+<<<<<<< HEAD
                   <li><a href="#" title="Cetak Tabel" class="" data-toggle="modal" data-target="#mutasic">Surat Mutasi Pegawai</a></li>
                   <li><a href="#" title="Cetak Tabel" class="" data-toggle="modal" data-target="#kegiatanc">Agenda / Kegiatan</a></li>
                   <!-- li><a href="#" title="Cetak Tabel" class="" data-toggle="modal" data-target="#hkegiatanc">Laporan Hasil Kegiatan</a></li> -->
@@ -133,6 +134,22 @@ $_SESSION['msg_type'] = "berhasil";
               </li>
             </ul>
           </nav>
+=======
+                                    <li><a href="#" title="Cetak Tabel" class="" data-toggle="modal" data-target="#mutasic">Surat Mutasi Pegawai</a></li>
+                                    <li><a href="#" title="Cetak Tabel" class="" data-toggle="modal" data-target="#kegiatanc">Agenda / Kegiatan</a></li>
+                                    <!-- li><a href="#" title="Cetak Tabel" class="" data-toggle="modal" data-target="#hkegiatanc">Laporan Hasil Kegiatan</a></li> -->
+                                    <li><a href="#" title="Cetak Tabel" class="" data-toggle="modal" data-target="#cutic">Pengajuan Cuti Pegawai</a></li>
+                                    <li><a href="#" title="Cetak Tabel" class="" data-toggle="modal" data-target="#pensiunc">Pensiun</a></li>
+                                    <li><a href="#" title="Cetak Tabel" class="" data-toggle="modal" data-target="#kinerjac">Penilaian Kinerja Pegawai</a></li>
+                                    <li><a href="#" title="Cetak Tabel" class="" data-toggle="modal" data-target="#kenaikanc">Kenaikan Jabatan</a></li>
+                                    <br><br>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+>>>>>>> 7f293989944fbcea17da8a039c15f4337fb1ae54
         </div>
       </div>
     </div>
@@ -941,7 +958,81 @@ $_SESSION['msg_type'] = "berhasil";
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       <button type="submit" name="cetak" class="btn btn-primary btn-sm">CETAK BULANAN</button>
     </div>
+<<<<<<< HEAD
     </form>
   </div>
   </div>
+=======
+  </div>
+
+
+  <?php 
+    $qrytahun = mysqli_query($koneksi, "SELECT YEAR(tanggal) AS tahun_kenaikan FROM kenaikan_jabatan GROUP BY YEAR(tanggal)
+    ")?>
+  <div class="modal fade" id="kenaikanc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Cetak Data</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="../laporan/data_kenaikan.php" method="post" target="_blank"> 
+          <table>
+          <div class="form-group row">
+              <label class="col-sm-5 col-form-label" >Berdasarkan Bulan</label>
+            </div>
+              <div class="col-sm-12" style="margin-bottom: 10px;">
+                <select required style="color: black;" name="bulan-cetak" class="form-control">
+                  <option readonly="">-PILIH BULAN-</option>
+                  <option value="-01-">Januari</option>
+                  <option value="-02-">Februari</option>
+                  <option value="-03-">Maret</option>
+                  <option value="-04-">April</option>
+                  <option value="-05-">Mei</option>
+                  <option value="-06-">Juni</option>
+                  <option value="-07-">Juli</option>
+                  <option value="-08-">Agustus</option>
+                  <option value="-09-">September</option>
+                  <option value="-10-">Oktober</option>
+                  <option value="-11-">November</option>
+                  <option value="-12-">Desember</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-5 col-form-label">Berdasarkan Tahun</label>
+            </div>
+              <div class="col-sm-12" style="margin-bottom: 10px;">
+                <select required style="color: black;" name="tahun-cetak" class="form-control">
+                  <option readonly="">-PILIH TAHUN-</option>
+                  <?php if(mysqli_num_rows($qrytahun)) { ?>
+                  <?php while ($row = mysqli_fetch_array($qrytahun)) { ?>
+                  <option><?php 
+                    $formatwaktu = $row["tahun_kenaikan"];
+                    echo date('Y',strtotime($formatwaktu)); 
+                    ?></option>
+                  <?php } ?>
+                  <?php } ?>
+                </select>
+              </div>
+            </div>
+
+              
+            <div align="">
+            </div>
+              
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" name="cetak" class="btn btn-primary btn-sm">CETAK BULANAN</button>
+        </div>
+        </form>
+      </div>
+    </div>
+>>>>>>> 7f293989944fbcea17da8a039c15f4337fb1ae54
   </div>
