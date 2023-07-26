@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2023 at 10:26 AM
+-- Generation Time: Jul 25, 2023 at 06:23 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -70,22 +70,54 @@ CREATE TABLE `absen_pegawai` (
   `id` int(11) NOT NULL,
   `id_pg` int(11) NOT NULL,
   `tanggal` date NOT NULL,
-  `absen` tinyint(4) NOT NULL DEFAULT 1
+  `absen` tinyint(4) NOT NULL DEFAULT 1,
+  `absen_masuk` time DEFAULT NULL,
+  `absen_pulang` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `absen_pegawai`
 --
 
-INSERT INTO `absen_pegawai` (`id`, `id_pg`, `tanggal`, `absen`) VALUES
-(1, 12, '2023-08-12', 1),
-(2, 13, '2023-07-14', 1),
-(3, 12, '2023-07-13', 1),
-(5, 12, '2023-07-14', 1),
-(6, 13, '2023-07-15', 1),
-(7, 12, '2023-07-15', 1),
-(8, 12, '2023-07-16', 1),
-(9, 26, '2023-07-16', 1);
+INSERT INTO `absen_pegawai` (`id`, `id_pg`, `tanggal`, `absen`, `absen_masuk`, `absen_pulang`) VALUES
+(1, 12, '2023-08-12', 1, NULL, NULL),
+(2, 13, '2023-07-14', 1, NULL, NULL),
+(3, 12, '2023-07-13', 1, NULL, NULL),
+(5, 12, '2023-07-14', 1, NULL, NULL),
+(6, 13, '2023-07-15', 1, NULL, NULL),
+(7, 12, '2023-07-15', 1, NULL, NULL),
+(8, 12, '2023-07-16', 1, NULL, NULL),
+(9, 26, '2023-07-16', 1, NULL, NULL),
+(10, 26, '2023-07-01', 1, NULL, NULL),
+(11, 12, '2023-08-11', 1, NULL, NULL),
+(12, 12, '2023-08-10', 1, NULL, NULL),
+(13, 13, '2023-07-01', 1, NULL, NULL),
+(14, 13, '2023-07-02', 1, NULL, NULL),
+(15, 13, '2023-07-03', 1, NULL, NULL),
+(16, 13, '2023-07-04', 1, NULL, NULL),
+(17, 26, '2023-07-17', 1, NULL, NULL),
+(18, 12, '2023-07-17', 1, NULL, NULL),
+(19, 27, '2023-07-17', 1, NULL, NULL),
+(20, 28, '2023-07-17', 1, NULL, NULL),
+(21, 13, '2023-07-05', 1, NULL, NULL),
+(22, 13, '2023-07-06', 1, NULL, NULL),
+(23, 13, '2023-07-07', 1, NULL, NULL),
+(24, 13, '2023-07-08', 1, NULL, NULL),
+(25, 13, '2023-07-09', 1, NULL, NULL),
+(26, 13, '2023-07-10', 1, NULL, NULL),
+(27, 13, '2023-07-11', 1, NULL, NULL),
+(30, 13, '2023-07-12', 1, NULL, NULL),
+(31, 13, '2023-07-13', 1, NULL, NULL),
+(32, 13, '2023-07-16', 1, NULL, NULL),
+(33, 13, '2023-07-18', 1, NULL, NULL),
+(34, 13, '2023-07-25', 1, NULL, NULL),
+(35, 29, '2023-07-17', 1, NULL, NULL),
+(36, 12, '2023-07-24', 1, NULL, NULL),
+(37, 26, '2023-07-24', 1, NULL, NULL),
+(38, 26, '2023-07-24', 1, NULL, NULL),
+(39, 28, '2023-07-24', 1, NULL, NULL),
+(40, 12, '2023-07-24', 1, NULL, NULL),
+(43, 12, '2023-07-25', 1, '23:25:31', '23:30:09');
 
 -- --------------------------------------------------------
 
@@ -231,16 +263,18 @@ CREATE TABLE `kenaikan_jabatan` (
   `nip` varchar(255) NOT NULL,
   `bidang` varchar(255) NOT NULL,
   `jabatan_baru` varchar(255) NOT NULL,
-  `golongan_baru` varchar(255) NOT NULL
+  `golongan_baru` varchar(255) NOT NULL,
+  `tanggal` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kenaikan_jabatan`
 --
 
-INSERT INTO `kenaikan_jabatan` (`id_kenaikan`, `nip`, `bidang`, `jabatan_baru`, `golongan_baru`) VALUES
-(1, '197006161990031002', 'anggaran', 'staff', 'eselon IIA'),
-(5, '197406262005011005', 'asd', 'ads', 'asd');
+INSERT INTO `kenaikan_jabatan` (`id_kenaikan`, `nip`, `bidang`, `jabatan_baru`, `golongan_baru`, `tanggal`) VALUES
+(1, '197006161990031002', 'anggaran', 'staff', 'eselon IIA', '2023-07-15'),
+(5, '197406262005011005', 'asd', 'ads', 'asd', '2023-07-16'),
+(6, '197406042009041003', 'Akuntansi', 'Kepala Bidang ', 'III', '2023-07-24');
 
 -- --------------------------------------------------------
 
@@ -296,7 +330,10 @@ INSERT INTO `t_admin` (`id_admin`, `id_pg`, `username`, `password`, `level`) VAL
 (2, NULL, 'atasan', 'atasan', 'atasan'),
 (3, 12, 'pegawai', 'pegawai', 'pegawai'),
 (4, 13, 'pegawai2', 'pegawai', 'pegawai'),
-(8, 26, '197406042009041333', '197406042009041333', 'pegawai');
+(8, 26, '197406042009041333', '197406042009041333', 'pegawai'),
+(9, 27, '199709202020121007', '199709202020121007', 'pegawai'),
+(10, 28, '199408152020122005', '199408152020122005', 'pegawai'),
+(11, 29, '199406152020122014', '199406152020122014', 'pegawai');
 
 -- --------------------------------------------------------
 
@@ -329,11 +366,11 @@ INSERT INTO `t_pegawai` (`id_pg`, `nip`, `nama_lengkap`, `id_jabatan`, `jenis_ke
 (12, '197006161990031002', 'DR. H. SUFIANSYAH, M.AP', 7, 'Laki-laki', 'Islam', 'KAWIN', 'Banjarmasin', '1975-06-10', 'Jl.Pembangunan', '08524767654', '8541kaban.PNG', 'asn', ''),
 (13, '197406262005011005', 'HARIS FADHILAH, SE, MM', 4, 'Laki-laki', 'Islam', 'KAWIN', 'Banua Halat', '1978-01-10', 'Jl.Penghulu', '0813478976', '3740sekretaris.PNG', 'asn', ''),
 (14, '197406042009041003', 'ABDUL RAZAK, S.KOM', 9, 'Laki-laki', 'Islam', 'KAWIN', 'Rantau', '1970-03-05', 'Jl.Rangda Malingkung', '08124765871', '1539pa.razak.PNG', 'asn', ''),
-(15, '199408152020122005', 'RIDA AHYANI, SE', 8, 'Perempuan', 'Islam', 'KAWIN', 'Martapura', '1982-02-01', 'Jl.Haur Kuning', '085234786577', '7150rida.PNG', 'asn', ''),
-(16, '199406152020122014', 'FITRI NORKOMARIAHYUSTIN, S.Ak', 8, 'Perempuan', 'Islam', 'KAWIN', 'Kandangan', '1993-08-11', 'Jl.Lokpaikat', '085298832169', '1511yustin.PNG', 'asn', ''),
-(17, '199709202020121007', 'MUHAMMAD ZAINI, A.Md.Ak', 8, 'Laki-laki', 'Islam', 'BELUM KAWIN', 'Banjarmasin', '1994-06-09', 'Jl.Kesehatan', '08136558972', '4788zai.PNG', 'asn', ''),
 (21, '197609032000121006', 'ZAINAL ABIDIN, SKM', 17, 'Laki-laki', 'Islam', 'KAWIN', 'Rantau', '1977-11-09', 'Jl.Mtq', '08525677412', '6731pa.zainal.PNG', 'asn', ''),
-(26, '197406042009041333', 'Imam SP', 7, 'Laki-laki', 'Islam', 'BELUM KAWIN', 'Banjarmasin', '2023-07-16', 'Banjarmasin', '2323323232323', '2841afifah.PNG', 'asn', '12');
+(26, '197406042009041333', 'Imam SP', 7, 'Laki-laki', 'Islam', 'BELUM KAWIN', 'Banjarmasin', '2023-07-16', 'Banjarmasin', '2323323232323', '2841afifah.PNG', 'asn', '12'),
+(27, '199709202020121007', 'MUHAMMAD ZAINI, A.Md.Ak', 8, 'Laki-laki', 'Islam', 'BELUM KAWIN', 'Banjarmasin', '1995-06-05', 'Jl.Kesehatan', '08124765890', '4408zai.PNG', 'asn', 'Eselon II A'),
+(28, '199408152020122005', 'RIDA AHYANI, SE', 8, 'Perempuan', 'Islam', 'KAWIN', 'Martapura', '1996-08-09', 'Jl.Penghulu', '085243567898', '9320rida.PNG', 'asn', 'Eselon II A'),
+(29, '199406152020122014', 'FITRI NORKOMARIAHYUSTIN, S.Ak', 8, 'Perempuan', 'Islam', 'KAWIN', 'Kandangan', '1994-01-22', 'Sungai Raya', '081347532876', '1325yustin.PNG', 'asn', 'III');
 
 -- --------------------------------------------------------
 
@@ -449,7 +486,7 @@ ALTER TABLE `absensi`
 -- AUTO_INCREMENT for table `absen_pegawai`
 --
 ALTER TABLE `absen_pegawai`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `cuti`
@@ -479,7 +516,7 @@ ALTER TABLE `kegiatan`
 -- AUTO_INCREMENT for table `kenaikan_jabatan`
 --
 ALTER TABLE `kenaikan_jabatan`
-  MODIFY `id_kenaikan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_kenaikan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `mutasi`
@@ -491,13 +528,13 @@ ALTER TABLE `mutasi`
 -- AUTO_INCREMENT for table `t_admin`
 --
 ALTER TABLE `t_admin`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `t_pegawai`
 --
 ALTER TABLE `t_pegawai`
-  MODIFY `id_pg` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_pg` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `t_pensiun`
